@@ -6,6 +6,13 @@ sqs = Aws::SQS::Client.new()
 
 poller = Aws::SQS::QueuePoller.new(ENV['QUEUE_URL'])
 
-poller.poll(wait_time_seconds:20) do |msg|
-  puts msg.body
+# loop to get messages sequentially (message invisible to other subscribers)
+# wait_time_seconds: how long to wait before requesting next message 
+# idle_timeout: if no more messages, how long to wait until exiting loop
+
+begin
+  poller.poll(wait_time_seconds:nil, idle_timeout:5) do |msg|
+    puts msg.body
+  end
+rescue AWS::SQS::Error::ServiceError
 end
