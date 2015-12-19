@@ -4,8 +4,6 @@
 config_env do
   set 'AWS_ACCESS_KEY_ID', '...'
   set 'AWS_SECRET_ACCESS_KEY', '...'
-
-  set 'QUEUE_URL', '...'
 end
 
 config_env :production do
